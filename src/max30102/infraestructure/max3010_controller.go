@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type ProductController struct {
+type Max30102Controller struct {
 	createProductUseCase   *controllers.CreateMax30102Controller
 	viewAllProductsUseCase *controllers.GetAllMax30102Controller
 }
@@ -16,19 +16,19 @@ func NewProductController(
 	createUseCase *application.CreateMax30102UseCase,
 	viewUseCase *application.GetAll30102UseCase,
 	//publisher *broker.RabbitMQPublisher,
-) *ProductController {
+) *Max30102Controller {
 	createHandler := controllers.NewMax30102Controller(createUseCase,/* publisher*/)
 	viewHandler := controllers.GetAll30102Controller(viewUseCase)
 
-	return &ProductController{
+	return &Max30102Controller{
 		createProductUseCase:   createHandler,
 		viewAllProductsUseCase: viewHandler,
 	}
 }
-func (pc *ProductController) CreateProduct(c *gin.Context) {
+func (pc *Max30102Controller) CreateProduct(c *gin.Context) {
 	pc.createProductUseCase.SaveMax30102Data(c)
 }
 
-func (pc *ProductController) GetAllProducts(c *gin.Context) {
+func (pc *Max30102Controller) GetAllProducts(c *gin.Context) {
 	pc.viewAllProductsUseCase.GetMax30102Data(c)
 }
