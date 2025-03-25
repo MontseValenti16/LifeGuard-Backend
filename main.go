@@ -2,7 +2,7 @@ package main
 
 import (
 	"LifeGuard/src/core/middleware"
-	"LifeGuard/src/max30102/infraestructure"
+	"LifeGuard/src/mpu6050/infraestructure"
 
 	"github.com/gin-gonic/gin"
 )
