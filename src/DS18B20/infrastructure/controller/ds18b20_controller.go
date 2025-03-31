@@ -1,4 +1,4 @@
-package infraestructure
+package controller
 
 import (
 	"LifeGuard/src/ds18b20/application"
