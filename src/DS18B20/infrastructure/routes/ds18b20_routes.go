@@ -1,5 +1,4 @@
-package infraestructure
-
+package routes
 import (
 	"LifeGuard/src/ds18b20/infrastructure/controller"
 	"github.com/gin-gonic/gin"

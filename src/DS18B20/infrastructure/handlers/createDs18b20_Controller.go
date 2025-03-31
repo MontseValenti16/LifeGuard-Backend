@@ -1,4 +1,4 @@
-package controllers
+package handlers
 
 import (
 	"LifeGuard/src/ds18b20/application"
