@@ -1,4 +1,5 @@
 package handlers
+
 import (
 	"LifeGuard/src/ds18b20/application"
 	"LifeGuard/src/ds18b20/domain/entities"
