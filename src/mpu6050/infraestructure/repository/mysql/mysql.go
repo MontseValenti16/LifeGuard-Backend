@@ -20,8 +20,8 @@ func NewMySQL() *MySQL {
 }
 
 func (mysql *MySQL) Save(data *entities.Mpu6050) error {
-	query := `INSERT INTO mpu6050 (pasos, distancia) VALUES (?, ?)`
-	_, err := mysql.conn.DB.Exec(query, data.Pasos, data.Distancia)
+	query := `INSERT INTO mpu6050 (pasos, distancia, fecha, macaddress) VALUES (?, ?, ?, ?)`
+	_, err := mysql.conn.DB.Exec(query, data.Pasos, data.Distancia, data.Timestamp, data.MacAddress)
 	if err != nil {
 		log.Println("Error insertando los valores:", err)
 		return err
@@ -31,7 +31,7 @@ func (mysql *MySQL) Save(data *entities.Mpu6050) error {
 }
 
 func (mysql *MySQL) GetAll() ([]*entities.Mpu6050, error) {
-	query := `SELECT id, pasos, distancia FROM mpu6050`
+	query := `SELECT id, pasos, distancia, fecha, macaddress FROM mpu6050`
 	rows, err := mysql.conn.DB.Query(query)
 	if err != nil {
 		log.Println("Error consultando datos:", err)

@@ -20,8 +20,8 @@ func NewMySQL() *MySQL {
 }
 
 func (mysql *MySQL) Save(data *entities.Max30102) error {
-	query := `INSERT INTO max30102 (bpm, spo2) VALUES (?, ?)`
-	result, err := mysql.conn.DB.Exec(query, data.BPM, data.SpO2)
+	query := `INSERT INTO max30102 (bpm, spo2, fecha, macaddress) VALUES (?, ?, ?, ?)`
+	result, err := mysql.conn.DB.Exec(query, data.BPM, data.SpO2, data.Timestamp, data.MacAddress)
 	if err != nil {
 		log.Println("Error insertando producto:", err)
 		return err
@@ -36,7 +36,7 @@ func (mysql *MySQL) Save(data *entities.Max30102) error {
 }
 
 func (mysql *MySQL) GetAll() ([]*entities.Max30102, error) {
-	query := `SELECT id, bpm, spo2 FROM max30102`
+	query := `SELECT id, bpm, spo2, fecha, macaddress FROM max30102`
 	rows, err := mysql.conn.DB.Query(query)
 	if err != nil {
 		log.Println("Error consultando datos:", err)
