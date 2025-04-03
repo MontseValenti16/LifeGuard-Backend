@@ -47,7 +47,7 @@ func (mysql *MySQL) GetAll() ([]*entities.Max30102, error) {
 	var products []*entities.Max30102
 	for rows.Next() {
 		var product entities.Max30102
-		err := rows.Scan(&product.ID, &product.SpO2, &product.BPM)
+		err := rows.Scan(&product.ID, &product.BPM, &product.SpO2, &product.Timestamp, &product.MacAddress)
 		if err != nil {
 			log.Println("Error leyendo fila:", err)
 			continue
