@@ -42,7 +42,7 @@ func (mysql *MySQL) GetAll() ([]*entities.Mpu6050, error) {
 	var products []*entities.Mpu6050
 	for rows.Next() {
 		var product entities.Mpu6050
-		err := rows.Scan(&product.ID, &product.Pasos, &product.Distancia)
+		err := rows.Scan(&product.ID, &product.Pasos, &product.Distancia, &product.Timestamp, &product.MacAddress)
 		if err != nil {
 			log.Println("Error leyendo fila:", err)
 			continue
