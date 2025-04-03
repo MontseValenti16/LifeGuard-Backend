@@ -2,7 +2,7 @@ package mysql
 
 import (
 	core "LifeGuard/src/core/db"
-	"LifeGuard/src/mpu6050/domain/entities"
+	"LifeGuard/src/ds18b20/domain/entities"
 	"fmt"
 	"log"
 )
@@ -19,9 +19,9 @@ func NewMySQL() *MySQL {
 	return &MySQL{conn: conn}
 }
 
-func (mysql *MySQL) Save(data *entities.Mpu6050) error {
-	query := `INSERT INTO mpu6050 (pasos, distancia, fecha, macaddress) VALUES (?, ?, ?, ?)`
-	_, err := mysql.conn.DB.Exec(query, data.Pasos, data.Distancia, data.Timestamp, data.MacAddress)
+func (mysql *MySQL) Save(data *entities.Ds18b20) error {
+	query := `INSERT INTO ds18b20 (temperatura, fecha, macaddress) VALUES (?, ?, ?)`
+	_, err := mysql.conn.DB.Exec(query, data.Temperatura, data.Timestamp, data.MacAddress)
 	if err != nil {
 		log.Println("Error insertando los valores:", err)
 		return err
@@ -30,8 +30,8 @@ func (mysql *MySQL) Save(data *entities.Mpu6050) error {
 	return nil
 }
 
-func (mysql *MySQL) GetAll() ([]*entities.Mpu6050, error) {
-	query := `SELECT id, pasos, distancia, fecha, macaddress FROM mpu6050`
+func (mysql *MySQL) GetAll() ([]*entities.Ds18b20, error) {
+	query := `SELECT id, temperatura, fecha, macaddress FROM ds18b20`
 	rows, err := mysql.conn.DB.Query(query)
 	if err != nil {
 		log.Println("Error consultando datos:", err)
@@ -39,10 +39,10 @@ func (mysql *MySQL) GetAll() ([]*entities.Mpu6050, error) {
 	}
 	defer rows.Close()
 
-	var products []*entities.Mpu6050
+	var products []*entities.Ds18b20
 	for rows.Next() {
-		var product entities.Mpu6050
-		err := rows.Scan(&product.ID, &product.Pasos, &product.Distancia)
+		var product entities.Ds18b20
+		err := rows.Scan(&product.ID, &product.Temperatura)
 		if err != nil {
 			log.Println("Error leyendo fila:", err)
 			continue
@@ -55,7 +55,7 @@ func (mysql *MySQL) GetAll() ([]*entities.Mpu6050, error) {
 		return nil, err
 	}
 	if len(products) == 0 {
-		return []*entities.Mpu6050{}, nil
+		return []*entities.Ds18b20{}, nil
 	}
 
 	return products, nil

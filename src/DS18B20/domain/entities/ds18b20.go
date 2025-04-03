@@ -1,9 +1,8 @@
 package entities
 
-type Mpu6050 struct{
+type Ds18b20 struct{
 	ID 		  int `json:"id"`
-	Pasos	  int `json:"pasos"`
-	Distancia int `json:"distancia"`
+	Temperatura float64 `json:"temperatura"`
 	Timestamp string    `json:"fecha"`
 	MacAddress string   `json:"macaddress"`
 }
