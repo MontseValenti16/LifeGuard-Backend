@@ -20,8 +20,8 @@ func NewMySQL() *MySQL {
 }
 
 func (mysql *MySQL) Save(data *entities.Mpu6050) error {
-	query := `INSERT INTO mpu6050 (pasos, distancia, fecha, macaddress) VALUES (?, ?, ?, ?)`
-	_, err := mysql.conn.DB.Exec(query, data.Pasos, data.Distancia, data.Timestamp, data.MacAddress)
+	query := `INSERT INTO mpu6050 (pasos, distancia, fecha, macaddress, id_persona) VALUES (?, ?, ?, ?, ?)`
+	_, err := mysql.conn.DB.Exec(query, data.Pasos, data.Distancia, data.Timestamp, data.MacAddress, data.IdPersona)
 	if err != nil {
 		log.Println("Error insertando los valores:", err)
 		return err
@@ -31,7 +31,7 @@ func (mysql *MySQL) Save(data *entities.Mpu6050) error {
 }
 
 func (mysql *MySQL) GetAll() ([]*entities.Mpu6050, error) {
-	query := `SELECT id, pasos, distancia, fecha, macaddress FROM mpu6050`
+	query := `SELECT id, pasos, distancia, fecha, macaddress, id_persona FROM mpu6050`
 	rows, err := mysql.conn.DB.Query(query)
 	if err != nil {
 		log.Println("Error consultando datos:", err)
@@ -42,7 +42,7 @@ func (mysql *MySQL) GetAll() ([]*entities.Mpu6050, error) {
 	var products []*entities.Mpu6050
 	for rows.Next() {
 		var product entities.Mpu6050
-		err := rows.Scan(&product.ID, &product.Pasos, &product.Distancia, &product.Timestamp, &product.MacAddress)
+		err := rows.Scan(&product.ID, &product.Pasos, &product.Distancia, &product.Timestamp, &product.MacAddress, &product.IdPersona)
 		if err != nil {
 			log.Println("Error leyendo fila:", err)
 			continue
