@@ -10,32 +10,16 @@ import (
 )
 
 func main() {
-	go func() {
-		r1 := gin.Default()
-		r1.Use(middleware.MiddlewareCORS())
-		initDs18b20.InitTemp(r1)
-		if err := r1.Run(":8084"); err != nil {
-			panic(err)
-		}
-	}()
+	r := gin.Default()
+	r.Use(middleware.MiddlewareCORS())
 
-	go func() {
-		r2 := gin.Default()
-		r2.Use(middleware.MiddlewareCORS())
-		initMpu6050.Init(r2)
-		if err := r2.Run(":8082"); err != nil {
-			panic(err)
-		}
-	}()
+	// Agrupa todas las inicializaciones en un solo router
+	initDs18b20.InitTemp(r)   // Ej: /temperature
+	initMpu6050.Init(r)       // Ej: /accelerometer
+	initMax30102.Init(r)      // Ej: /heartrate
 
-	go func() {
-		r3 := gin.Default()
-		r3.Use(middleware.MiddlewareCORS())
-		initMax30102.Init(r3)
-		if err := r3.Run(":8083"); err != nil {
-			panic(err)
-		}
-	}()
-
-	select {} // Mantiene el programa corriendo
+	// Inicia un único servidor en el puerto 8080
+	if err := r.Run(":8080"); err != nil {
+		panic(err)
+	}
 }
