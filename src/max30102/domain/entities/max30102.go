@@ -6,4 +6,5 @@ type Max30102 struct {
     SpO2      float64   `json:"spo2"`
 	Timestamp string    `json:"fecha"`
 	MacAddress string   `json:"macaddress"`
+    IdPersona int `json:"id_persona"`
 }

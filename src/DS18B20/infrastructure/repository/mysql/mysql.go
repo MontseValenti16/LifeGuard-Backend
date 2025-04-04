@@ -20,8 +20,8 @@ func NewMySQL() *MySQL {
 }
 
 func (mysql *MySQL) Save(data *entities.Ds18b20) error {
-	query := `INSERT INTO ds18b20 (temperatura, fecha, macaddress) VALUES (?, ?, ?)`
-	_, err := mysql.conn.DB.Exec(query, data.Temperatura, data.Timestamp, data.MacAddress)
+	query := `INSERT INTO ds18b20 (temperatura, fecha, macaddress, id_persona) VALUES (?, ?, ?, ?)`
+	_, err := mysql.conn.DB.Exec(query, data.Temperatura, data.Timestamp, data.MacAddress, data.IdPersona)
 	if err != nil {
 		log.Println("Error insertando los valores:", err)
 		return err
@@ -31,7 +31,7 @@ func (mysql *MySQL) Save(data *entities.Ds18b20) error {
 }
 
 func (mysql *MySQL) GetAll() ([]*entities.Ds18b20, error) {
-	query := `SELECT id, temperatura, fecha, macaddress FROM ds18b20`
+	query := `SELECT id, temperatura, fecha, macaddress, id_persona FROM ds18b20`
 	rows, err := mysql.conn.DB.Query(query)
 	if err != nil {
 		log.Println("Error consultando datos:", err)
@@ -42,7 +42,7 @@ func (mysql *MySQL) GetAll() ([]*entities.Ds18b20, error) {
 	var products []*entities.Ds18b20
 	for rows.Next() {
 		var product entities.Ds18b20
-		err := rows.Scan(&product.ID, &product.Temperatura, &product.MacAddress, &product.Timestamp)
+		err := rows.Scan(&product.ID, &product.Temperatura, &product.MacAddress, &product.Timestamp, &product.IdPersona)
 		if err != nil {
 			log.Println("Error leyendo fila:", err)
 			continue
