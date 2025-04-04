@@ -5,4 +5,5 @@ type Ds18b20 struct{
 	Temperatura float64 `json:"temperatura"`
 	Timestamp string    `json:"fecha"`
 	MacAddress string   `json:"macaddress"`
+	IdPersona int `json:"id_persona"`
 }

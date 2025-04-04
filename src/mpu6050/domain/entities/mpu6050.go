@@ -6,4 +6,5 @@ type Mpu6050 struct{
 	Distancia int `json:"distancia"`
 	Timestamp string    `json:"fecha"`
 	MacAddress string   `json:"macaddress"`
+	IdPersona int `json:"id_persona"`
 }
