@@ -14,7 +14,7 @@ func main() {
 		r1 := gin.Default()
 		r1.Use(middleware.MiddlewareCORS())
 		initDs18b20.InitTemp(r1)
-		if err := r1.Run(":8081"); err != nil {
+		if err := r1.Run(":8084"); err != nil {
 			panic(err)
 		}
 	}()
